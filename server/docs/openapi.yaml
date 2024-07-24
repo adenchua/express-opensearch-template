@@ -1,0 +1,52 @@
+openapi: "3.1.0"
+info:
+  version: 1.0.0
+  title: Example Server
+servers:
+  - url: /api/v1
+paths:
+  /users:
+    get:
+      summary: Retrieves all users from the database
+      operationId: listUsers
+      tags:
+        - Users
+      responses:
+        "200":
+          description: An array of users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /users/{id}:
+    get:
+      summary: Get a specific user by id
+      operationId: getUserById
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the user to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - username
+        - name
+      properties:
+        username:
+          type: string
+        name:
+          type: string
